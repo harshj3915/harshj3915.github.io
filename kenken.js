@@ -122,6 +122,8 @@ function checkAnswer() {
         capture();
         gameOver = true;
         finishTime = Date.now();
+        alert("You have solved this question. Jainam move do the next question.")
+        generateBoard()
     }
 }
 
