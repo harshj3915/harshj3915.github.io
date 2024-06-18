@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>WebKenKen</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                color: #000000;
+                font-family:Monospace;
+                font-size:15px;
+                text-align:center;
+
+                background-color: #f0f0f0;
+                margin: 0px;
+            }
+
+            .timer {
+                font-size: 150%;
+            }
+
+        </style>
+    </head>
+    <body>
+        <h1>KenKen</h1>
+        Size:
+        <select id="sizeSelect">
+            <option>4</option>
+        </select>
+        <input type="button" onclick="generateBoard()" value="Create">
+        <!-- <input type="button" onclick="solve()" value="Solve"> -->
+        <input type="button" onclick="hide()" value="Reset">
+        <!-- <input type="button" onclick="save()" value="Save"> -->
+        <!-- <input type="button" onclick="load()" value="Load"> -->
+        <!-- <input type="button" onclick="clip()" value="Copy to clipboard"> -->
+        <!-- <input type="button" onclick="paste()" value="Paste from clipboard"> -->
+        <hr>
+        Time: <span id="time" class="timer"></span>s
+        <div id="container"></div>
+
+        <script src="kenken.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    </body>
+</html>
