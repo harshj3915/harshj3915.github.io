@@ -107,6 +107,7 @@ function hide() {
 
 function showWinMessage() {
     messageElem.innerHTML = "Congratulations!<br>You've solved the puzzle!";
+    document.getElementById("nextButton").classList.remove("hidden");
 }
 
 function checkAnswer() {
@@ -189,9 +190,11 @@ function updateTime(evt) {
 }
 
 window.onload = function () {
-    generateBoard();
+    generateNextBoard();
+    
     setInterval(updateTime, 1000);
     setInterval(updateCurrentDateTime,1000)
+    
 }
 function generateNextBoard() {
 
@@ -295,16 +298,17 @@ function createElements() {
     var answers = document.createElement('div');
     container.appendChild(answers);
     answers.style.fontSize = '25px';
-    answers.style.padding = '10px';
+    answers.style.padding = '30px';
+    answers.style.marginTop = '20px';
     answers.innerHTML = 'Ans: ';
 
     function addAnswer(str) {
         var a = document.createElement('span');
         answers.appendChild(a);
         a.innerHTML = str;
-        a.style.marginRight = '10px';
+        a.style.marginRight = '30px';
         a.style.border = '1px solid blue';
-        a.style.padding = '5px';
+        a.style.padding = '15px';
         a.onclick = function () {
             if (selectedCoords) {
                 var valueDiv = document.getElementById('r' + selectedCoords[1] + 'c' + selectedCoords[0]);
@@ -324,14 +328,15 @@ function createElements() {
     container.appendChild(memoContainer);
     memoContainer.style.fontSize = '15px';
     memoContainer.style.padding = '10px';
+    memoContainer.style.marginTop = '20px';
     memoContainer.innerHTML = 'Memo: ';
     for (var i = 0; i < size; i++) {
         var a = document.createElement('span');
         memoContainer.appendChild(a);
         a.innerHTML = (i + 1).toString();
-        a.style.marginRight = '10px';
+        a.style.marginRight = '20px';
         a.style.border = '1px solid blue';
-        a.style.padding = '5px';
+        a.style.padding = '10px';
         a.onclick = function () {
             if (selectedCoords) {
                 var memoElem = document.getElementById('memo_r' + selectedCoords[1] + 'c' + selectedCoords[0]);
