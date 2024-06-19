@@ -119,22 +119,85 @@ function checkAnswer() {
     });
     if (correct) {
         showWinMessage();
-        capture();
         gameOver = true;
         finishTime = Date.now();
+        saveCompletedGame()
+        document.getElementById('nextButton').classList.remove('hidden');
     }
 }
 
+
+
+
+function saveCompletedGame() {
+    var completedGame = document.getElementById('tosave').innerHTML;
+    var history = JSON.parse(localStorage.getItem('kenkenHistory')) || [];
+    history.push(completedGame);
+    localStorage.setItem('kenkenHistory', JSON.stringify(history));
+}
+
+
+// Function to get the ordinal suffix of a number
+function getOrdinalSuffix(n) {
+    if (n >= 11 && n <= 13) return n + "th";
+    switch (n % 10) {
+        case 1: return n + "st";
+        case 2: return n + "nd";
+        case 3: return n + "rd";
+        default: return n + "th";
+    }
+}
+
+// Function to get the name of the month
+function getMonthName(month) {
+    const monthNames = ["Jan", "Feb", "Mar", "April", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    return monthNames[month];
+}
+
+// Function to update current date and time
+function updateCurrentDateTime() {
+    var now = new Date();
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var seconds = now.getSeconds();
+    var day = now.getDate();
+    var month = now.getMonth();
+    var period = hours >= 12 ? 'PM' : 'AM';
+
+    // Convert to 12-hour format
+    hours = hours % 12;
+    hours = hours ? hours : 12; // If hours is 0, make it 12
+
+    // Add leading zeros if necessary
+    if (hours < 10) hours = '0' + hours;
+    if (minutes < 10) minutes = '0' + minutes;
+    if (seconds < 10) seconds = '0' + seconds;
+
+    // Format date and time
+    var formattedTime = hours + ':' + minutes + ':' + seconds + ' ' + period;
+    var formattedDate = getOrdinalSuffix(day) + ' ' + getMonthName(month);
+
+    // Update the HTML content
+    document.getElementById('currentDateTime').innerText = formattedTime + ' ' + formattedDate;
+}
 function updateTime(evt) {
     var endTime = gameOver ? finishTime : Date.now();
-    document.getElementById("time").innerHTML = Math.floor((endTime - startTime) / 1000 + spentTime);
+    var sec=Math.floor((endTime - startTime) / 1000 + spentTime)
+    var min=Math.floor(sec/60)
+    console.log(min,sec)
+    document.getElementById("time").innerHTML =`${min}m ${sec-(min*60)}`;
 }
 
 window.onload = function () {
     generateBoard();
     setInterval(updateTime, 1000);
+    setInterval(updateCurrentDateTime,1000)
 }
+function generateNextBoard() {
 
+    document.getElementById("nextButton").classList.add("hidden");
+    generateBoard();
+}
 function createElements() {
     cellBorderElems = new Array(size * size);
     cellElems = new Array(size * size);

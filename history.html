@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Kenken-History</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            color: #000000;
+            font-family: Monospace;
+            font-size: 15px;
+            text-align: center;
+
+            background-color: #f0f0f0;
+            margin: 0px;
+        }
+
+        .timer {
+            font-size: 150%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>KenKen FOR JAINAM</h1>
+    <a href="index.html" class="button">Go to Kenken Puzzles</a>
+    <h2>Completed Puzzles</h2>
+    
+    <div id="historyContainer"></div>
+    <script>
+        function loadHistory() {
+            var history = JSON.parse(localStorage.getItem('kenkenHistory')) || [];
+
+            var historyContainer = document.getElementById('historyContainer');
+            historyContainer.innerHTML = '';
+            history.reverse().forEach((item, index) => {
+                
+                var div = document.createElement('div');
+                div.innerHTML = `<hr><h3>Completed Game ${history.length - index}</h3><div>${item}</div>`;
+                historyContainer.appendChild(div);
+            });
+        }
+        window.onload = function () {
+            loadHistory();
+        }
+    </script>
+
+
+</body>
+
+</html>
