@@ -107,7 +107,7 @@ function hide() {
 
 function showWinMessage() {
     messageElem.innerHTML = "Congratulations!<br>You've solved the puzzle!";
-    document.getElementById("nextButton").classList.remove("hidden");
+
 }
 
 function checkAnswer() {
@@ -123,7 +123,9 @@ function checkAnswer() {
         gameOver = true;
         finishTime = Date.now();
         saveCompletedGame()
-        document.getElementById('nextButton').classList.remove('hidden');
+        alert("You are done jainam. do next question")
+        generateBoard()
+
     }
 }
 
@@ -190,16 +192,11 @@ function updateTime(evt) {
 }
 
 window.onload = function () {
-    generateNextBoard();
+    generateBoard()
     
     setInterval(updateTime, 1000);
     setInterval(updateCurrentDateTime,1000)
     
-}
-function generateNextBoard() {
-
-    document.getElementById("nextButton").classList.add("hidden");
-    generateBoard();
 }
 function createElements() {
     cellBorderElems = new Array(size * size);
